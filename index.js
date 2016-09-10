@@ -1,11 +1,9 @@
 var Service, Characteristic;
 var request = require('sync-request');
 
-var temperatureService;
 var humidityService;
 var url 
 var humidity = 0;
-var temperature = 0;
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
@@ -25,7 +23,7 @@ function HttpTemphum(log, config) {
     this.manufacturer = config["manufacturer"] || "Luca Manufacturer";
     this.model = config["model"] || "Luca Model";
     this.serial = config["serial"] || "Luca Serial";
-    this.humidity = config["humidity"];
+    this.humidity = true;
 }
 
 HttpTemphum.prototype = {
@@ -57,18 +55,16 @@ HttpTemphum.prototype = {
 	  this.log('HTTP power function succeeded!');
           var info = JSON.parse(res.body);
 
-          temperatureService.setCharacteristic(Characteristic.CurrentTemperature, info.temperature);
           if(this.humidity !== false)
             humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
 
           this.log(res.body);
           this.log(info);
 
-          this.temperature = info.temperature;
           if(this.humidity !== false)
             this.humidity = info.humidity;
 
-	  callback(null, this.temperature);
+	  callback(null, this.humidity);
 	}
     },
 
@@ -86,12 +82,6 @@ HttpTemphum.prototype = {
                 .setCharacteristic(Characteristic.Model, this.model)
                 .setCharacteristic(Characteristic.SerialNumber, this.serial);
         services.push(informationService);
-
-        temperatureService = new Service.TemperatureSensor(this.name);
-        temperatureService
-                .getCharacteristic(Characteristic.CurrentTemperature)
-                .on('get', this.getState.bind(this));
-        services.push(temperatureService);
         
         if(this.humidity !== false){
           humidityService = new Service.HumiditySensor(this.name);
