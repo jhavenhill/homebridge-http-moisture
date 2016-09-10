@@ -20,9 +20,9 @@ function HttpTemphum(log, config) {
     this.http_method = config["http_method"] || "GET";
     this.sendimmediately = config["sendimmediately"] || "";
     this.name = config["name"];
-    this.manufacturer = config["manufacturer"] || "Luca Manufacturer";
-    this.model = config["model"] || "Luca Model";
-    this.serial = config["serial"] || "Luca Serial";
+    this.manufacturer = config["manufacturer"] || "SparkFun";
+    this.model = config["model"] || "Soil Moisture Sensor";
+    this.serial = config["serial"] || "NA";
     this.humidity = true;
 }
 
