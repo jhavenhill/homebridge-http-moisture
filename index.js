@@ -2,7 +2,7 @@ var Service, Characteristic;
 var request = require('sync-request');
 
 var humidityService;
-var url 
+var url;
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
@@ -45,7 +45,7 @@ HTTPMoisture.prototype = {
 	var res = request(this.http_method, this.url, {});
 	if(res.statusCode > 400){
 	  this.log('HTTP power function failed');
-	  callback(error);
+	  callback(null, 0);
 	} else {
 	  this.log('HTTP succeeded!');
           var info = JSON.parse(res.body);
