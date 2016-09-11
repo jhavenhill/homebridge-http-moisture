@@ -40,26 +40,7 @@ HTTPMoisture.prototype = {
     },
 
     getStateHumidity: function(callback){    
-        var body;
-
-	var res = request(this.http_method, this.url, {});
-	if(res.statusCode > 400){
-	  this.log('HTTP power function failed');
-	  callback(error);
-	} else {
-	  this.log('HTTP power function succeeded!');
-          var info = JSON.parse(res.body);
-
-         humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
-
-         this.log(res.body);
-         this.log(info);
-
-         this.humidity = info.humidity;
-
-         accessory.log("Current moisture level is: " + this.humidity)
-
-	 callback(null, this.humidity);
+	callback(null, this.humidity);
     },
 
     getState: function (callback) {
