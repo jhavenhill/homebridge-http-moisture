@@ -13,6 +13,7 @@ module.exports = function (homebridge) {
 
 
 function HTTPMoisture(log, config) {
+    var accessory = this;
     this.log = log;
 
     // url info
@@ -56,13 +57,16 @@ HTTPMoisture.prototype = {
           var info = JSON.parse(res.body);
 
          humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
+         
 
          this.log(res.body);
          this.log(info);
 
          this.humidity = info.humidity;
 
-	  callback(null, this.humidity);
+         accessory.log("Current moisture level is: " + this.humidity)
+
+	 callback(null, this.humidity);
 	}
     },
 
