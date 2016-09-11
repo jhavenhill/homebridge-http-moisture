@@ -43,7 +43,7 @@ HTTPMoisture.prototype = {
 	callback(null, this.humidity);
     },
 
-    getState: function (callback) {
+    getHumidity: function (callback) {
         var body;
 
 	var res = request(this.http_method, this.url, {});
