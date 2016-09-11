@@ -57,7 +57,7 @@ HTTPMoisture.prototype = {
 
          this.humidity = info.humidity;
 
-         accessory.log("Current moisture level is: " + this.humidity)
+         this.log("Current moisture level is: " + this.humidity)
 
 	 callback(null, this.humidity);
 	}
