@@ -47,12 +47,11 @@ HTTPMoisture.prototype = {
 	  this.log('HTTP power function failed');
 	  callback(error);
 	} else {
-	  this.log('HTTP power function succeeded!');
+	  this.log('HTTP succeeded!');
           var info = JSON.parse(res.body);
 
          humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
 
-         this.log(res.body);
          this.log(info);
 
          this.humidity = info.humidity;
