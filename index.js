@@ -3,7 +3,6 @@ var request = require('sync-request');
 
 var humidityService;
 var url 
-var humidity = 0;
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
@@ -13,7 +12,6 @@ module.exports = function (homebridge) {
 
 
 function HTTPMoisture(log, config) {
-    var accessory = this;
     this.log = log;
 
     // url info
@@ -57,7 +55,6 @@ HTTPMoisture.prototype = {
           var info = JSON.parse(res.body);
 
          humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
-         
 
          this.log(res.body);
          this.log(info);
