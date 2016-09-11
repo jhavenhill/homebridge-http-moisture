@@ -8,11 +8,11 @@ var humidity = 0;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory("homebridge-httptemperaturehumidity", "HttpTemphum", HttpTemphum);
+    homebridge.registerAccessory("homebridge-httptemperaturehumidity", "HTTPMoisture", HTTPMoisture);
 }
 
 
-function HttpTemphum(log, config) {
+function HTTPMoisture(log, config) {
     this.log = log;
 
     // url info
@@ -26,7 +26,7 @@ function HttpTemphum(log, config) {
     this.humidity = true;
 }
 
-HttpTemphum.prototype = {
+HTTPMoisture.prototype = {
 
     httpRequest: function (url, body, method, username, password, sendimmediately, callback) {
         request({
@@ -55,14 +55,12 @@ HttpTemphum.prototype = {
 	  this.log('HTTP power function succeeded!');
           var info = JSON.parse(res.body);
 
-          if(this.humidity !== false)
-            humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
+         humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, info.humidity);
 
-          this.log(res.body);
-          this.log(info);
+         this.log(res.body);
+         this.log(info);
 
-          if(this.humidity !== false)
-            this.humidity = info.humidity;
+         this.humidity = info.humidity;
 
 	  callback(null, this.humidity);
 	}
